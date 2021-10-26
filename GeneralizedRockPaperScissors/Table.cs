@@ -7,8 +7,8 @@ namespace GeneralizedRockPaperScissors
 {
     class Table
     {
-        List<string> Names;
-        public Table(List<string> names)
+        string[] Names;
+        public Table(string[] names)
         {
             Names = names;
         }
@@ -18,16 +18,16 @@ namespace GeneralizedRockPaperScissors
             var headerItems = Names.Prepend("PC \\ User");
             var table = new ConsoleTable(headerItems.ToArray());
 
-            var judge = new Judge(Names.Count);
+            var judge = new Judge(Names.Length);
 
-            for (int i = 0; i < Names.Count; i++)
+            for (int i = 0; i < Names.Length; i++)
             {
-                var currentRow = new List<string>();
-                currentRow.Add(Names[i]);
+                var currentRow = new string[Names.Length + 1];
+                currentRow[0] = Names[i];
             
-                for (int j = 0; j < Names.Count; j++)
+                for (int j = 0; j < Names.Length; j++)
                 {
-                    currentRow.Add(Enum.GetName(typeof(Outcome), judge.Decide(i, j)));
+                    currentRow[j + 1] = Enum.GetName(typeof(Outcome), judge.Decide(i, j));
                 }
 
                 table.AddRow(currentRow.ToArray());
