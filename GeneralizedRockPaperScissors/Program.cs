@@ -84,6 +84,9 @@ namespace GeneralizedRockPaperScissors
                 }
 
                 Console.WriteLine("HMAC key: " + key);
+
+                Console.WriteLine();
+                Console.WriteLine();
             }
         }
     }
