@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
@@ -7,17 +6,27 @@ namespace GeneralizedRockPaperScissors
 {
     class Program
     {
-        static void Main(string[] args)
+        static bool CheckArgs(string[] args)
         {
-            if (args.Length % 2 == 0)
+            if (args.Length < 3 || args.Length % 2 == 0)
             {
-                Console.WriteLine("Invalid options: number of moves must be odd.");
-                return;
+                Console.WriteLine("Invalid options: please pass odd number of moves (3 or more).");
+                return false;
             }
 
             if (args.Length != args.Distinct().Count())
             {
-                Console.WriteLine("Invalid options: moves must not repeat.");
+                Console.WriteLine("Invalid options: all moves must be distinct.");
+                return false;
+            }
+
+            return true;
+        }
+
+        static void Main(string[] args)
+        {
+            if (!CheckArgs(args))
+            {
                 return;
             }
 
@@ -29,6 +38,8 @@ namespace GeneralizedRockPaperScissors
 
             while (!gameFinished)
             {
+                Console.Write("\n\n\n");
+
                 var key = sec.GenerateKey();
                 var computerMove = RandomNumberGenerator.GetInt32(args.Length);
                 var hmac = sec.GenerateHMAC(key, args[computerMove]);
@@ -84,9 +95,6 @@ namespace GeneralizedRockPaperScissors
                 }
 
                 Console.WriteLine("HMAC key: " + key);
-
-                Console.WriteLine();
-                Console.WriteLine();
             }
         }
     }
