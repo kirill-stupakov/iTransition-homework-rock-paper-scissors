@@ -38,8 +38,6 @@ namespace GeneralizedRockPaperScissors
 
             while (!gameFinished)
             {
-                Console.Write("\n\n\n");
-
                 var key = sec.GenerateKey();
                 var computerMove = RandomNumberGenerator.GetInt32(args.Length);
                 var hmac = sec.GenerateHMAC(key, args[computerMove]);
@@ -60,6 +58,7 @@ namespace GeneralizedRockPaperScissors
                 if (ans == "?")
                 {
                     a.Print();
+                    Console.Write("\n\n\n");
                     continue;
                 }
 
@@ -73,6 +72,7 @@ namespace GeneralizedRockPaperScissors
 
                 if (!int.TryParse(ans, out playerMove) || playerMove <= 0 || playerMove > args.Length)
                 {
+                    Console.Write("\n\n\n");
                     continue;
                 }
 
@@ -95,6 +95,7 @@ namespace GeneralizedRockPaperScissors
                 }
 
                 Console.WriteLine("HMAC key: " + key);
+                Console.Write("\n\n\n");
             }
         }
     }
